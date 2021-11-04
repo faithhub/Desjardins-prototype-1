@@ -18,6 +18,14 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+<style>
+    img:hover {
+        outline: 5px solid #04AA6D;
+        padding: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
 
 <body>
 
@@ -116,21 +124,69 @@
 
         <div class="page-wrapper">
             <div class="content container-fluid">
-                <div class="text-right mt-2 mb-4">
-                    <button class="btn btn-primary">Generate Code</button>
-                </div>
-                <div class="row container-fluid">
-                    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
-                        <img src="assets/img/svg/Salesforce.com_logo.svg" class="img-fluid" style="width: 80%;">
+                <div class="card py-4">
+
+                    <div class="col-auto text-right mt-2 mb-4">
+                        <button class="btn btn-primary" data-toggle="modal" onclick="Generate()"
+                            data-target="#exampleModal">Generate
+                            Code</button>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
-                        <img src="assets/img/svg/Bell_logo.svg" alt="" class="img-fluid" style="width: 80%;">
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body py-5">
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control" id="myInput" readonly aria-label="Large"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            style="border-radius: 5px 0px 0px 5px;">
+                                        <div class="input-group-prepend">
+                                            <span onclick="myFunction()" class="btn input-group-text"
+                                                id="inputGroup-sizing-lg" style="border-radius: 0px 5px 5px 0px;"><b
+                                                    id="copy-text">Copy</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
-                        <img src="assets/img/svg/quebec-vector-logo.svg" alt="" class="img-fluid" style="width: 80%;">
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModal2Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body py-5">
+                                    <div class="text-center py-4">
+                                        <h3 id="text-new">hbvdsjvjv</h3>
+                                    </div>
+                                    <div class="">
+                                        <div class="float-left">
+                                            <button class="btn btn-primary">Call Service Provider</button>
+                                        </div>
+                                        <div class="float-right">
+                                            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
-                        <img src="assets/img/svg/derjaslin.svg" alt="" class="img-fluid" style="width: 80%;">
+
+                    <div class="row container-fluid">
+                        <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+                            <img data-toggle="modal" data-target="#exampleModal2" onclick="GenerateNew()"
+                                src="assets/img/svg/Salesforce.com_logo.svg" class="img-fluid" style="width: 80%;">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+                            <img src="assets/img/svg/Bell_logo.svg" alt="" class="img-fluid" style="width: 80%;">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+                            <img src="assets/img/svg/quebec-vector-logo.svg" alt="" class="img-fluid"
+                                style="width: 80%;">
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+                            <img src="assets/img/svg/derjaslin.svg" alt="" class="img-fluid" style="width: 80%;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +235,6 @@
     <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
     <script src="assets/plugins/apexchart/dsh-apaxcharts.js"></script>
 
-    <script src="assets/plugins/simple-calendar/jquery.simple-calendar.js"></script>
     <script src="assets/js/calander.js"></script>
 
     <script src="assets/js/script.js"></script>
@@ -188,10 +243,33 @@
             $('.myradio').removeClass('myactive');
             $(this).addClass('myactive');
         });
-            // $('.myradio').click(function(){
-            //     $('.myradio').removeClass('myactive');
-            //     $(this).addClass('myactive');
-            // });
+        // $('.myradio').click(function(){
+        //     $('.myradio').removeClass('myactive');
+        //     $(this).addClass('myactive');
+        // });
+        function Generate() {
+            var code = Math.random().toString(36).slice(2).toUpperCase()
+            document.getElementById("myInput").value = code
+            document.getElementById("copy-text").innerHTML = 'Copy'
+        }
+        function GenerateNew() {
+            var code = Math.random().toString(36).slice(2).toUpperCase()
+            document.getElementById("text-new").innerHTML = code
+        }
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.value);
+            document.getElementById("copy-text").innerHTML = 'Copied'
+
+            /* Alert the copied text */
+            // alert("Copied the text: " + copyText.value);
+        }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </body>
